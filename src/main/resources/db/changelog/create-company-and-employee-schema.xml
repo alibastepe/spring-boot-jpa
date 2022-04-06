@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <changeSet id="01" author="alibastepe">
+        <createTable tableName="student"  remarks="Student Data">
+            <column name="id" type="int" autoIncrement="true">
+                <constraints nullable="false" unique="true" primaryKey="true"/>
+            </column>
+            <column name="first_name" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="last_name" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <!-- for manual rollback
+        <rollback>
+          <dropTable tableName="company"/>
+        </rollback>
+        -->
+
+        <createTable tableName="instructor_detail"   remarks="Instructor Detail">
+            <column name="id" type="int" autoIncrement="true">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="mail_address" type="varchar(255)">
+                <constraints nullable="true"/>
+            </column>
+        </createTable>
+
+
+    </changeSet>
+
+
+    <changeSet id="02" author="alibastepe">
+        <createTable tableName="instructor"  remarks="Instructor Data">
+            <column name="id" type="int" autoIncrement="true">
+                <constraints nullable="false" unique="true" primaryKey="true"/>
+            </column>
+            <column name="first_name" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="last_name" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="instructor_detail_id" type="int" >
+                <constraints nullable="false" />
+            </column>
+        </createTable>
+
+        <addForeignKeyConstraint baseTableName="instructor" baseColumnNames="instructor_detail_id"
+                                 constraintName="instructor_ct1"
+                                 referencedTableName="instructor_detail" referencedColumnNames="id"/>
+
+        <createTable tableName="course"  remarks="Course Data">
+            <column name="id" type="int" autoIncrement="true">
+                <constraints nullable="false" unique="true" primaryKey="true"/>
+            </column>
+
+            <column name="course_rating" type="double">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="instructor_id" type="int" >
+                <constraints nullable="false" />
+            </column>
+
+
+        </createTable>
+
+        <addForeignKeyConstraint baseTableName="course" baseColumnNames="instructor_id"
+                                 constraintName="course_ct1"
+                                 referencedTableName="instructor" referencedColumnNames="id"/>
+        <!-- for manual rollback
+        <rollback>
+          <dropTable tableName="company"/>
+        </rollback>
+        -->
+
+    </changeSet>
+    
+    <changeSet id="03" author="alibastepe">
+        <createTable tableName="enrollment">
+            <column name="student_id" type="int">
+                <constraints nullable="false" />
+            </column>
+            <column name="course_id" type="int">
+                <constraints nullable="false" />
+            </column>
+        </createTable>
+
+        <addForeignKeyConstraint baseTableName="enrollment" baseColumnNames="student_id"
+                                 constraintName="enrollment_ct1"
+                                 referencedTableName="student" referencedColumnNames="id"/>
+
+        <addForeignKeyConstraint baseTableName="enrollment" baseColumnNames="course_id"
+                                 constraintName="enrollment_ct2"
+                                 referencedTableName="course" referencedColumnNames="id"/>
+
+    </changeSet>
+
+
+
+
+</databaseChangeLog>
