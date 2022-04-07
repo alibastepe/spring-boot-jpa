@@ -6,9 +6,10 @@
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
          http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
 
-    <changeSet id="01" author="alibastepe">
+    <changeSet id="01" author="alibastepe"
+    >
         <createTable tableName="student"  remarks="Student Data">
-            <column name="id" type="int" autoIncrement="true">
+            <column name="student_id" type="int" autoIncrement="true">
                 <constraints nullable="false" unique="true" primaryKey="true"/>
             </column>
             <column name="first_name" type="varchar(255)">
@@ -59,9 +60,10 @@
                                  referencedTableName="instructor_detail" referencedColumnNames="id"/>
 
         <createTable tableName="course"  remarks="Course Data">
-            <column name="id" type="int" autoIncrement="true">
+            <column name="course_id" type="int" autoIncrement="true">
                 <constraints nullable="false" unique="true" primaryKey="true"/>
             </column>
+
 
             <column name="course_rating" type="double">
                 <constraints nullable="false"/>
@@ -97,11 +99,30 @@
 
         <addForeignKeyConstraint baseTableName="enrollment" baseColumnNames="student_id"
                                  constraintName="enrollment_ct1"
-                                 referencedTableName="student" referencedColumnNames="id"/>
+                                 referencedTableName="student" referencedColumnNames="student_id"/>
 
         <addForeignKeyConstraint baseTableName="enrollment" baseColumnNames="course_id"
                                  constraintName="enrollment_ct2"
-                                 referencedTableName="course" referencedColumnNames="id"/>
+                                 referencedTableName="course" referencedColumnNames="course_id"/>
+
+
+    </changeSet>
+
+    <changeSet id="04" author="alibastepe">
+        <addColumn tableName="course">
+            <column name="course_name" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+        </addColumn>
+
+    </changeSet>
+
+    <changeSet id="05" author="alibastepe">
+        <addColumn tableName="instructor_detail">
+            <column name="youtube_channel" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+        </addColumn>
 
     </changeSet>
 

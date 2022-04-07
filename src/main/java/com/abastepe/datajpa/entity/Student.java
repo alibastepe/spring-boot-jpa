@@ -5,6 +5,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -18,9 +20,25 @@ public class Student {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer student_id;
 
-    @ManyToMany(cascade = CascadeType.ALL)
+    @Column(name="first_name", nullable = false)
+    private String firstName;
+
+    @Column(name="last_name", nullable = false)
+    private String lastName;
+
+
+
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinTable(name="enrollment",
                 joinColumns = { @JoinColumn (name="student_id")},
-                inverseJoinColumns = { @JoinColumn (name="id")})
-    private Set<Course> courses;
+                inverseJoinColumns = { @JoinColumn (name="course_id")})
+    private List<Course> courses;
+
+    public void addCourse(Course c) {
+        if(courses ==  null) {
+            courses = new ArrayList<>();
+        }
+        courses.add(c);
+    }
+
 }

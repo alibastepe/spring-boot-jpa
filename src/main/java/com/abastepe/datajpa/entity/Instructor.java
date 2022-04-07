@@ -1,5 +1,6 @@
 package com.abastepe.datajpa.entity;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -12,6 +13,7 @@ import java.util.Set;
 @Getter
 @Setter
 @NoArgsConstructor
+@AllArgsConstructor
 public class Instructor {
 
     @Id
@@ -25,7 +27,7 @@ public class Instructor {
     private String lastName;
 
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name="detail_id", referencedColumnName = "id")
+    @JoinColumn(name="instructor_detail_id", referencedColumnName = "id")
     private InstructorDetail detail;
 
     @OneToMany(mappedBy="instructor")
