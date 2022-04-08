@@ -2,6 +2,7 @@ package com.abastepe.datajpa.entity;
 
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -24,11 +25,12 @@ public class Course {
 	@Column(name="course_rating")
 	private double rating;
 
-	@ManyToOne(cascade = CascadeType.PERSIST)
+	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name="instructor_id", referencedColumnName = "id", nullable=false)
+	@JsonIgnore
 	private Instructor instructor;
 
-	@ManyToMany(mappedBy = "courses")
+	@ManyToMany(mappedBy = "courses", cascade = CascadeType.ALL)
 	private List<Student> students;
 
 	public void addStudent(Student s)  {

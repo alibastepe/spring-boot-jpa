@@ -6,5 +6,6 @@ import java.util.List;
 
 public interface IStudentService {
     List<Student> findAll();
+    List<Student> findByFirstName(String firstName);
     void addStudent(Student s);
 }

@@ -18,6 +18,11 @@ public class StudentService implements IStudentService {
     }
 
     @Override
+    public List<Student> findByFirstName(String firstName) {
+        return studentRepo.findAllByFirstNameEquals(firstName);
+    }
+
+    @Override
     public void addStudent(Student s) {
         studentRepo.save(s);
     }

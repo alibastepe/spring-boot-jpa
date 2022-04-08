@@ -1,5 +1,6 @@
 package com.abastepe.datajpa.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -24,5 +25,6 @@ public class InstructorDetail {
     private String youtube_channel;
 
     @OneToOne(mappedBy = "detail")
+    @JsonIgnore
     private Instructor instructor;
 }

@@ -4,18 +4,28 @@ import com.abastepe.datajpa.entity.Course;
 import com.abastepe.datajpa.entity.Instructor;
 import com.abastepe.datajpa.entity.InstructorDetail;
 import com.abastepe.datajpa.entity.Student;
+import com.abastepe.datajpa.service.IStudentService;
 import com.abastepe.datajpa.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
-public class MyRestController {
+@RequestMapping("/student")
+public class StudentController {
 	@Autowired
-    private StudentService studentService;
+    private IStudentService studentService;
 
 	@Value("${spring.datasource.url}")
 	private String url;
+
+	@GetMapping(value="/{firstName}")
+	public List<Student> getStudentsByFirstName(@PathVariable("firstName") String firstName)  {
+		Student s = studentService.findByFirstName(firstName).get(0);
+		return studentService.findByFirstName(firstName);
+	}
 
 	@PostMapping("/addStudent")
 	public Student addUser(@RequestBody Student student)  {
@@ -27,6 +37,8 @@ public class MyRestController {
 		ins.setFirstName("hoca1");
 		ins.setLastName("hoca1");
 		ins.setDetail(insDetail);
+
+		insDetail.setInstructor(ins);
 
 		Course myCourse = new Course();
 		myCourse.setCourseName("JAva101");

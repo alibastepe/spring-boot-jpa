@@ -1,12 +1,11 @@
 package com.abastepe.datajpa.repository;
 
+import com.abastepe.datajpa.entity.Course;
 import com.abastepe.datajpa.entity.Student;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import java.util.List;
-
 @Repository
-public interface StudentRepository extends JpaRepository<Student, Integer> {
-    public List<Student> findAllByFirstNameEquals(String firstName);
+public interface CourseRepository extends JpaRepository<Course, Integer> {
+
 }

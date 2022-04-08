@@ -1,5 +1,6 @@
 package com.abastepe.datajpa.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -32,6 +33,7 @@ public class Student {
     @JoinTable(name="enrollment",
                 joinColumns = { @JoinColumn (name="student_id")},
                 inverseJoinColumns = { @JoinColumn (name="course_id")})
+    @JsonIgnore
     private List<Course> courses;
 
     public void addCourse(Course c) {

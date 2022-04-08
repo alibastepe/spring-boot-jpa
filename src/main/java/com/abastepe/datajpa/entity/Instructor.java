@@ -1,5 +1,6 @@
 package com.abastepe.datajpa.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -30,6 +31,6 @@ public class Instructor {
     @JoinColumn(name="instructor_detail_id", referencedColumnName = "id")
     private InstructorDetail detail;
 
-    @OneToMany(mappedBy="instructor")
+    @OneToMany(mappedBy="instructor", cascade = CascadeType.ALL)
     private Set<Course> courses;
 }

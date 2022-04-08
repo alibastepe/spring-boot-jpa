@@ -126,6 +126,12 @@
 
     </changeSet>
 
+    <changeSet  author="alibastepe"  id="06">
+        <dropNotNullConstraint   columnDataType="int"
+                                columnName="instructor_detail_id"
+                                tableName="instructor"/>
+    </changeSet>
+
 
 
 
